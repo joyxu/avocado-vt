@@ -498,7 +498,7 @@ class QemuImg(storage.QemuImg):
                               "(lack of support in qemu-img)")
             else:
                 try:
-                    process.run("%s info %s" % (qemu_img_cmd, image_filename),
+                    process.run("%s info -U %s" % (qemu_img_cmd, image_filename),
                                 shell=True, verbose=False)
                 except process.CmdError:
                     logging.error("Error getting info from image %s",
