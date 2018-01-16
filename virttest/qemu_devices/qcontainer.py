@@ -1780,6 +1780,7 @@ class DevContainer(object):
                 bus_length = 20
                 bus_first_port = 1
             else:   # addr = 0x0-0x1f
+                parent_bus.append({'busid': '_PCI_CHASSIS'})
                 bus_length = 32
                 bus_first_port = 0
             bus = qbuses.QPCIBus(
