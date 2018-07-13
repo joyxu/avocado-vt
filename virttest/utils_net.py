@@ -3066,7 +3066,7 @@ def parse_arp():
     return ret
 
 
-def verify_ip_address_ownership(ip, macs, timeout=20.0, devs=None):
+def verify_ip_address_ownership(ip, macs, timeout=1.0, devs=None):
     """
     Make sure a given IP address belongs to one of the given
     MAC addresses.
@@ -3087,9 +3087,9 @@ def verify_ip_address_ownership(ip, macs, timeout=20.0, devs=None):
                 return True
 
         mac_regex = "|".join("(%s)" % mac for mac in macs)
-        regex = re.compile(r"\b%s\b.*\b(%s)\b" % (ip, mac_regex), re.I)
+        regex = re.compile(r"\b%s\b.*\b(%s)\b" % (mac_regex, ip), re.I)
         arping_bin = utils_path.find_command("arping")
-        arping_cmd = "%s -f -c3 -w%d -I %s %s" % (arping_bin, int(timeout),
+        arping_cmd = "%s -c3 -W%d -I %s %s" % (arping_bin, int(timeout),
                                                   dev, ip)
         s, o = commands.getstatusoutput(arping_cmd)
         if s != 0:
